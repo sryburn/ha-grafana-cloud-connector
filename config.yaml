@@ -1,8 +1,8 @@
 ---
 name: "Grafana Cloud Connector"
 description: "Uses the official Grafana Alloy component to forward Home Assistant sensor data to Grafana Cloud via Prometheus"
-version: "1.3.0"
-slug: "grafana_alloy_simple"
+version: "1.0.0"
+slug: "grafana_cloud_connector"
 arch:
   - aarch64
   - amd64
