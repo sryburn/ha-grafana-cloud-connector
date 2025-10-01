@@ -1,0 +1,34 @@
+---
+name: "Grafana Cloud Connector"
+description: "Official Grafana Alloy with built-in Grafana Cloud integration. Supports both authenticated and unauthenticated Home Assistant access."
+version: "1.3.0"
+slug: "grafana_alloy_simple"
+arch:
+  - aarch64
+  - amd64
+  - armv7
+startup: application
+boot: auto
+hassio_api: true
+options:
+  grafana_cloud_url: ""
+  grafana_cloud_username: ""
+  grafana_cloud_password: ""
+  ha_url: "homeassistant.local:8123"
+  ha_access_token: ""
+  scrape_interval: "60s"
+  enable_self_monitoring: true
+  log_level: "info"
+schema:
+  grafana_cloud_url: url
+  grafana_cloud_username: str
+  grafana_cloud_password: password
+  ha_url: str
+  ha_access_token: password?
+  scrape_interval: str
+  enable_self_monitoring: bool
+  log_level: list(debug|info|warning|error)
+ports:
+  12345/tcp: 12345
+ports_description:
+  12345/tcp: "Alloy web UI"

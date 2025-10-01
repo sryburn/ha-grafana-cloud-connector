@@ -1,0 +1,29 @@
+// Home Assistant Prometheus to Grafana Cloud forwarder
+// This configuration scrapes HA's Prometheus endpoint and forwards to Grafana Cloud
+
+// Configure Grafana Cloud remote write endpoint
+prometheus.remote_write "grafana_cloud" {
+    endpoint {
+        url = "${GRAFANA_CLOUD_URL}"
+
+        basic_auth {
+            username = "${GRAFANA_CLOUD_USERNAME}"
+            password = "${GRAFANA_CLOUD_PASSWORD}"
+        }
+    }
+}
+
+// Scrape Home Assistant Prometheus endpoint
+prometheus.scrape "home_assistant" {
+    targets = [{
+        __address__ = "${HA_HOST}:${HA_PORT}",
+        __metrics_path__ = "/api/prometheus",
+    }]
+
+    ${HA_AUTH_CONFIG}
+    scrape_interval = "${SCRAPE_INTERVAL}"
+
+    forward_to = [prometheus.remote_write.grafana_cloud.receiver]
+}
+
+$SELF_MONITORING_CONFIG
